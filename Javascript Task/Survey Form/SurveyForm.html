@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            width: 500px;
+            background-color: #ffffff;
+            border: 2px solid #010101;
+            border-radius: 5px;
+            padding: 50px;
+            text-align: left;
+            align-items: center;
+        }
+
+        label, input {
+            display: inline-flex;
+            margin-bottom: 30px;
+        }
+
+        button {
+            display: inline;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000701;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            border-color: #000701;
+            top: 50px;
+            left: 500px;
+            width: 30%;
+            height: 70%;
+            background-color: rgb(240, 244, 245);
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Survey Form</h1>
+        <form id="myForm" onsubmit="return validateForm()">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="country">Country:</label>
+            <select id="country" name="country" required>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+            </select>
+<div>
+            <label for="gender">Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male"> Male
+            <input type="radio" id="female" name="gender" value="Female"> Female
+        </div>
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" name="profession" required>
+<div>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="resetForm()">Reset</button>
+        </div>
+        </form>
+    </div>
+
+    <div id="popup" class="popup" style="display: none;">
+        <h2>Submitted Details</h2>
+        <p><strong>First Name:</strong> <span id="popup-firstName"></span></p>
+        <p><strong>Last Name:</strong> <span id="popup-lastName"></span></p>
+        <p><strong>Email    :</strong> <span id="popup-email"></span></p>
+        <p><strong>Phone    :</strong> <span id="popup-mobile"></span></p>
+        <p><strong>DOB      :</strong> <span id="popup-dob"></span></p>
+        <p><strong>Gender   :</strong> <span id="popup-selectedGender"></span></p>
+        <p><strong>Profession:</strong> <span id="popup-profession"></span></p>
+        <p><strong>Country      :</strong> <span id="popup-country"></span></p>
+        <button type="button" onclick="closePopup()">OK</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const dob = document.getElementById('dob').value;
+        const country = document.getElementById('country').value;
+        const genderElements = document.getElementsByName('gender');
+        const selectedGender = Array.from(genderElements).find(g => g.checked).value;
+        const profession = document.getElementById('profession').value;
+        const email = document.getElementById('email').value;
+        const mobile = document.getElementById('mobile').value;
+
+            document.getElementById('popup-firstName').textContent = firstName;
+            document.getElementById('popup-lastName').textContent = lastName;
+            document.getElementById('popup-email').textContent = email;
+            document.getElementById('popup-mobile').textContent = mobile;
+            document.getElementById('popup-dob').textContent = dob;
+            document.getElementById('popup-country').textContent = country;
+            document.getElementById('popup-selectedGender').textContent = selectedGender;
+            document.getElementById('popup-profession').textContent = profession;
+            document.getElementById('popup').style.display = 'block';
+        }
+        function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+
+        function resetForm() {
+            const form = document.getElementById('myForm');
+            form.reset();
+        }
+
+        function validateForm() {
+            const form = document.getElementById('myForm');
+            if (form.checkValidity()) {
+                submitForm();
+                return false; // Prevent form submission
+            }
+            return false; // Prevent form submission if validation fails
+        }
+    </script>
+</body>
+</html>
